@@ -1,0 +1,44 @@
+<configuration scan="true" scanPeriod="30 seconds">
+
+    <!-- #######################################################################
+                           Configuration des Appender
+    ####################################################################### -->
+
+    <!--
+    -->
+    <appender name="INTERNAL" class="ch.qos.logback.core.FileAppender">
+        <file>core.log</file>
+        <append>false</append>
+        <encoder>
+            <pattern>%date %-5level [%thread][%X{user:app}] %logger{35} - %msg %n</pattern>
+        </encoder>
+    </appender>
+
+
+    <!--
+        ** Toutes les traces **
+        Inclus les logs des différentes librairies embarquées par MXA
+    -->
+    <appender name="CONSOLE_ALL" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <!--<pattern>%-5relative %-5level %logger{35} - %msg%n</pattern>-->
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %highlight(%-5level) %cyan(%logger{36}) - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="CONSOLE_APP" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %highlight(%-5level) %magenta(%logger{36}) - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="trace">
+        <appender-ref ref="INTERNAL" />
+        <appender-ref ref="CONSOLE_ALL" />
+    </root>
+
+    <logger  name="io.github.javathought.winecellar" level="trace" additivity="false">
+        <appender-ref ref="CONSOLE_APP" />
+    </logger>
+
+</configuration>
