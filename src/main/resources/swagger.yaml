@@ -61,7 +61,8 @@ paths:
                   format: int32
                 quantity:
                   type: integer
-                  format: int32                  
+                  format: int32
+#              additionalProperties: false
   '/bottles/{bottle_id}':
     get:
       tags:
