@@ -33,7 +33,6 @@ public class AddBottleHandler implements Handler<RoutingContext> {
         RequestParameters params = routingContext.get("parsedParameters");
         // Handle addBottle
 
-        Bottle newBottle = null;
         RequestParameter body = params.body();
         JsonObject jsonBody = body.getJsonObject();
 

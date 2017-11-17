@@ -2,7 +2,7 @@ package io.github.javathought.winecellar;
 
 import io.vertx.core.Vertx;
 
-public class Start {
+public class ManualStart {
     
     public static void main (String[] args) {
         Vertx vertx;
