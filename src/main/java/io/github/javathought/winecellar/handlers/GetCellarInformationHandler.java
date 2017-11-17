@@ -13,7 +13,7 @@ public class GetCellarInformationHandler implements Handler<RoutingContext> {
     @Override
     public void handle(RoutingContext routingContext) {
         // Handle getCellarInformation
-        routingContext.response().setStatusCode(501).setStatusMessage("Not Implemented").end();
+        routingContext.response().setStatusCode(200).end("Hi");
     }
 
 }

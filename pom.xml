@@ -14,7 +14,7 @@
   <properties>
     <main.verticle>io.github.javathought.winecellar.MainVerticle</main.verticle>
       <logback.version>1.1.11</logback.version>
-
+    <version.weld-vertx>1.2.0.Final</version.weld-vertx>
   </properties>
 
   <dependencies>
@@ -55,6 +55,11 @@
           <artifactId>logback-classic</artifactId>
           <version>${logback.version}</version>
       </dependency>
+    <dependency>
+      <groupId>org.jboss.weld.vertx</groupId>
+      <artifactId>weld-vertx-web</artifactId>
+      <version>${version.weld-vertx}</version>
+    </dependency>
     <dependency>
       <groupId>io.vertx</groupId>
       <artifactId>vertx-web-client</artifactId>
