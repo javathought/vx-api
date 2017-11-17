@@ -5,7 +5,7 @@ import cucumber.api.java8.En;
 public class BottleSteps extends BaseSteps implements En {
 
     public BottleSteps() {
-        super();        
+        super();
         
         Given("^la bouteille de \"([^\"]*)\" de provenance de \"([^\"]*)\" \\(id=(\\d+)\\)$",
                 (String nom, String pays, Integer id) ->         
