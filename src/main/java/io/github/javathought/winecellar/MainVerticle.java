@@ -4,7 +4,7 @@ import io.github.javathought.winecellar.handlers.AddBottleHandler;
 import io.github.javathought.winecellar.handlers.GetBottleByBottleIdHandler;
 import io.github.javathought.winecellar.handlers.GetBottlesHandler;
 import io.github.javathought.winecellar.handlers.GetCellarInformationHandler;
-import io.github.javathought.winecellar.securityHandlers.RolesSecurityHandler;
+import io.github.javathought.winecellar.security.handlers.RolesSecurityHandler;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.http.HttpServer;
 import io.vertx.core.http.HttpServerOptions;
@@ -17,9 +17,9 @@ import org.slf4j.LoggerFactory;
 
 public class MainVerticle extends AbstractVerticle {
   private static final Logger LOG = LoggerFactory.getLogger(MainVerticle.class);
-  public static final int PORT = 9090;
+  private static final int PORT = 9090;
 
-  HttpServer server;
+  private HttpServer server;
 
   @Override
   public void start(Future future) {

@@ -1,4 +1,4 @@
-package io.github.javathought.winecellar.securityHandlers;
+package io.github.javathought.winecellar.security.handlers;
 
 import io.vertx.core.Handler;
 import io.vertx.ext.web.RoutingContext;
@@ -6,7 +6,7 @@ import io.vertx.ext.web.RoutingContext;
 public class RolesSecurityHandler implements Handler<RoutingContext> {
 
     public RolesSecurityHandler(){
-
+        // not implemented yet
     }
 
     @Override
