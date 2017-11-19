@@ -4,7 +4,7 @@
     
     Scénario: Ajouter une bouteille
       Etant donné la bouteille de "Chateau Margon" de provenance de "France" (id=1)
-#      Quand la creation est lancée
+      Quand la creation est lancée
       
 # getBottles
 # getBottlesById
