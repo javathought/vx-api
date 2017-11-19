@@ -3,12 +3,13 @@ package io.github.javathought.winecellar.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.util.Objects;
 
-@JsonInclude(JsonInclude.Include.NON_NULL) 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Bottle   {
-  
+
   private Long id = null;
   private String name = null;
   private String pays;
@@ -124,26 +125,14 @@ public class Bottle   {
 
   @Override
   public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class Bottle {\n");
-    
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("    variety: ").append(toIndentedString(variety)).append("\n");
-    sb.append("    year: ").append(toIndentedString(year)).append("\n");
-    sb.append("    quantity: ").append(toIndentedString(quantity)).append("\n");
-    sb.append("}");
-    return sb.toString();
+    return new ToStringBuilder(this)
+            .append("id", id)
+            .append("name", name)
+            .append("pays", pays)
+            .append("variety", variety)
+            .append("year", year)
+            .append("quantity", quantity)
+            .toString();
   }
 
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
 }

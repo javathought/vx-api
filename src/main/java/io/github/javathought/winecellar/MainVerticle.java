@@ -17,7 +17,7 @@ import org.slf4j.LoggerFactory;
 
 public class MainVerticle extends AbstractVerticle {
   private static final Logger LOG = LoggerFactory.getLogger(MainVerticle.class);
-  private static final int PORT = 9090;
+  static final int PORT = 9090;
 
   private HttpServer server;
 

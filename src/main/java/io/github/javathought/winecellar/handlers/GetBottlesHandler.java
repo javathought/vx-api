@@ -6,6 +6,7 @@ import io.vertx.core.json.JsonArray;
 import io.vertx.ext.web.RoutingContext;
 
 import static org.apache.commons.lang3.CharEncoding.UTF_8;
+import static io.netty.handler.codec.http.HttpResponseStatus.OK;
 
 public class GetBottlesHandler implements Handler<RoutingContext> {
 
@@ -20,7 +21,7 @@ public class GetBottlesHandler implements Handler<RoutingContext> {
 
         vertx.eventBus().send("bottles.get", "get", msg -> {
             if (msg.succeeded()) {
-                routingContext.response().setStatusCode(200)
+                routingContext.response().setStatusCode(OK.code())
                         .putHeader("Content-Type", "application/json")
                         .end(
                                 ((JsonArray)msg.result().body()).encodePrettily()

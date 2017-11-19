@@ -9,6 +9,8 @@ import io.vertx.ext.web.api.RequestParameters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import static io.netty.handler.codec.http.HttpResponseStatus.INTERNAL_SERVER_ERROR;
+
 public class AddBottleHandler implements Handler<RoutingContext> {
 
     private static final Logger LOG = LoggerFactory.getLogger(AddBottleHandler.class);
@@ -35,7 +37,7 @@ public class AddBottleHandler implements Handler<RoutingContext> {
                             .end(jsonBody.encodePrettily());
             } else {
                 LOG.error("Erreur ", msg.cause());
-                routingContext.response().setStatusCode(500).end();
+                routingContext.response().setStatusCode(INTERNAL_SERVER_ERROR.code()).end();
             }
         } );
     }

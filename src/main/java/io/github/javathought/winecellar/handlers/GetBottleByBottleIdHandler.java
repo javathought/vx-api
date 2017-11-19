@@ -9,9 +9,14 @@ import io.vertx.ext.web.api.RequestParameters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import static io.netty.handler.codec.http.HttpResponseStatus.INTERNAL_SERVER_ERROR;
+import static io.netty.handler.codec.http.HttpResponseStatus.OK;
+
+
 public class GetBottleByBottleIdHandler implements Handler<RoutingContext> {
 
     private static final Logger LOG = LoggerFactory.getLogger(GetBottleByBottleIdHandler.class);
+    private static final String BOTTLE_ID = "bottle_id";
 
     private final Vertx vertx;
 
@@ -25,11 +30,11 @@ public class GetBottleByBottleIdHandler implements Handler<RoutingContext> {
         // Handle getBottleByBottleId
 
         vertx.eventBus().send("bottles.getById",
-                new JsonObject().put("bottle_id", params.pathParameter("bottle_id").getLong()),
+                new JsonObject().put("bottle_id", params.pathParameter(BOTTLE_ID).getLong()),
                 msg -> {
                     if (msg.succeeded()) {
                         routingContext.response().putHeader("Content-Type", "application/json")
-                                .setStatusCode(200).end((String) msg.result().body());
+                                .setStatusCode(OK.code()).end((String) msg.result().body());
 
                     } else {
                         if (msg.cause() instanceof ReplyException) {
@@ -37,7 +42,7 @@ public class GetBottleByBottleIdHandler implements Handler<RoutingContext> {
                             routingContext.response().setStatusCode(((ReplyException) msg.cause()).failureCode()).end();
                         } else {
                             LOG.error("Erreur ", msg.cause());
-                            routingContext.response().setStatusCode(500).end();
+                            routingContext.response().setStatusCode(INTERNAL_SERVER_ERROR.code()).end();
                         }
 
                     }

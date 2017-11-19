@@ -2,12 +2,11 @@ package io.github.javathought.winecellar;
 
 import cucumber.api.CucumberOptions;
 import cucumber.api.junit.Cucumber;
+import io.github.javathought.winecellar.test.TestThrowable;
 import io.vertx.core.Vertx;
 import io.vertx.core.VertxOptions;
-import io.vertx.ext.unit.Async;
-import org.junit.*;
-import org.junit.runner.JUnitCore;
-import org.junit.runner.Result;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 
 import java.util.concurrent.CountDownLatch;
@@ -22,7 +21,7 @@ public class BDDRunnerTest {
 
 
     @BeforeClass
-    public static void startVertX() throws Exception {
+    public static void startVertX() throws TestThrowable, InterruptedException {
         latch = new CountDownLatch(1);
         final boolean[] failed = {false};
 
@@ -37,7 +36,7 @@ public class BDDRunnerTest {
         });
         latch.await();
         if (failed[0]) {
-            throw new Exception("error starting Vert.X");
+            throw new TestThrowable("error starting Vert.X");
         }
 
 

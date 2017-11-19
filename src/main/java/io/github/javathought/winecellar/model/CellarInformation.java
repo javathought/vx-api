@@ -2,10 +2,11 @@ package io.github.javathought.winecellar.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.util.Objects;
 
-@JsonInclude(JsonInclude.Include.NON_NULL) 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class CellarInformation   {
   
   private Float temparature = null;
@@ -71,24 +72,11 @@ public class CellarInformation   {
 
   @Override
   public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class CellarInformation {\n");
-    
-    sb.append("    temparature: ").append(toIndentedString(temparature)).append("\n");
-    sb.append("    hygrometry: ").append(toIndentedString(hygrometry)).append("\n");
-    sb.append("    availableLocation: ").append(toIndentedString(availableLocation)).append("\n");
-    sb.append("}");
-    return sb.toString();
+    return new ToStringBuilder(this)
+            .append("temparature", temparature)
+            .append("hygrometry", hygrometry)
+            .append("availableLocation", availableLocation)
+            .toString();
   }
 
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
 }
