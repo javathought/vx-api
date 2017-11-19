@@ -9,8 +9,6 @@ import io.vertx.ext.web.api.RequestParameters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.concurrent.TimeUnit;
-
 public class GetBottleByBottleIdHandler implements Handler<RoutingContext> {
 
     private static final Logger LOG = LoggerFactory.getLogger(GetBottleByBottleIdHandler.class);
@@ -26,39 +24,24 @@ public class GetBottleByBottleIdHandler implements Handler<RoutingContext> {
         RequestParameters params = routingContext.get("parsedParameters");
         // Handle getBottleByBottleId
 
-        // Simulate blocking
-        vertx.executeBlocking(future -> {
-                    try {
-                        LOG.info("pause");
-                        TimeUnit.SECONDS.sleep(4);
-                        LOG.info("resume");
-                        future.complete();
-                    } catch (InterruptedException e) {
-                        LOG.trace("pause interrupted");
-                        Thread.currentThread().interrupt();
+        vertx.eventBus().send("bottles.getById",
+                new JsonObject().put("bottle_id", params.pathParameter("bottle_id").getLong()),
+                msg -> {
+                    if (msg.succeeded()) {
+                        routingContext.response().putHeader("Content-Type", "application/json")
+                                .setStatusCode(200).end((String) msg.result().body());
+
+                    } else {
+                        if (msg.cause() instanceof ReplyException) {
+                            LOG.warn("warn ", msg.cause());
+                            routingContext.response().setStatusCode(((ReplyException) msg.cause()).failureCode()).end();
+                        } else {
+                            LOG.error("Erreur ", msg.cause());
+                            routingContext.response().setStatusCode(500).end();
+                        }
+
                     }
-                },
-                false,
-                h ->
-                    vertx.eventBus().send("bottles.getById",
-                            new JsonObject().put("bottle_id", params.pathParameter("bottle_id").getLong()),
-                            msg -> {
-                                if (msg.succeeded()) {
-                                    routingContext.response().setStatusCode(200).end((String) msg.result().body());
-
-                                } else {
-                                    if (msg.cause() instanceof ReplyException) {
-                                        LOG.warn("warn ", msg.cause());
-                                        routingContext.response().setStatusCode(((ReplyException) msg.cause()).failureCode()).end();
-                                    } else {
-                                        LOG.error("Erreur ", msg.cause());
-                                        routingContext.response().setStatusCode(500).end();
-                                    }
-
-                                }
-                            })
-
-        );
+                });
 
     }
 
